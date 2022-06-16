@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * @see <a href="https://developpaper.com/using-multithreading-to-increase-kafka-consumption/">developpaper</a>
+ * @see <a href="https://www.baeldung.com/spring-boot-kafka-streams">baeldung</a>
  */
 @Component
 class EntityProcessor(
