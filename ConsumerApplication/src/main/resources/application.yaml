@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test_db
+    username: postgres
+    password: secret
+    hikari:
+      schema: public
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: test_entity_consumer_executor
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: org.example.*
+      auto-offset-reset: earliest
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    streams:
+      bootstrap-servers: localhost:9092
+      application-id: KafkaConsumerMultithreadingExample
