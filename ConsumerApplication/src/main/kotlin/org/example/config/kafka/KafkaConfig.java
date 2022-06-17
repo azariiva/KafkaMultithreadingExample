@@ -45,31 +45,31 @@ public class KafkaConfig {
     }
 
     @Bean
-    ProducerFactory<String, ?> producerFactory(KafkaProperties kafkaProperties) {
+    public ProducerFactory<String, ?> producerFactory(KafkaProperties kafkaProperties) {
         var producerProperties = kafkaProperties.buildProducerProperties();
         return new DefaultKafkaProducerFactory<>(producerProperties);
     }
 
     @Bean
-    KafkaTemplate<String, ?> kafkaTemplate(ProducerFactory<String, ?> producerFactory) {
+    public KafkaTemplate<String, ?> kafkaTemplate(ProducerFactory<String, ?> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 
     @Bean
-    ConsumerFactory<?, ?> kafkaConsumerFactory(KafkaProperties properties) {
+    public ConsumerFactory<?, ?> kafkaConsumerFactory(KafkaProperties properties) {
         var consumerProperties = properties.buildConsumerProperties();
         return new DefaultKafkaConsumerFactory<>(consumerProperties);
     }
 
     @Bean
-    KafkaListenerContainerFactory<?> kafkaListenerContainerFactory() {
+    public KafkaListenerContainerFactory<?> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConcurrency(8);
         return factory;
     }
 
     @Bean
-    ThreadPoolExecutor kafkaThreadPoolExecutor() {
+    public ThreadPoolExecutor kafkaThreadPoolExecutor() {
         return new ThreadPoolExecutor(
                 5,
                 20,
@@ -81,7 +81,7 @@ public class KafkaConfig {
     }
 
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
-    KafkaStreamsConfiguration kafkaStreamsConfiguration(
+    public KafkaStreamsConfiguration kafkaStreamsConfiguration(
             @Value("${spring.kafka.streams.bootstrap-servers}") String bootstrapServers,
             @Value("${spring.kafka.streams.application-id}") String applicationId
     ) {
