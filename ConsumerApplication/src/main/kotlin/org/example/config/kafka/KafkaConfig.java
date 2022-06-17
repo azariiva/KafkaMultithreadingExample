@@ -15,6 +15,9 @@ import org.springframework.kafka.core.*;
 import org.springframework.kafka.support.serializer.JsonSerde;
 
 import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import static org.apache.kafka.streams.StreamsConfig.*;
 
@@ -63,6 +66,18 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConcurrency(8);
         return factory;
+    }
+
+    @Bean
+    ThreadPoolExecutor kafkaThreadPoolExecutor() {
+        return new ThreadPoolExecutor(
+                5,
+                20,
+                10,
+                TimeUnit.SECONDS,
+                new SynchronousQueue<>(),
+                new ThreadPoolExecutor.CallerRunsPolicy()
+        );
     }
 
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)

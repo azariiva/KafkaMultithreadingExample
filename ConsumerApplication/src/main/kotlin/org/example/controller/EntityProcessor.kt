@@ -11,9 +11,7 @@ import org.example.service.TestService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
-import java.util.concurrent.SynchronousQueue
 import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
 
 /**
  * @see <a href="https://developpaper.com/using-multithreading-to-increase-kafka-consumption/">developpaper</a>
@@ -23,16 +21,8 @@ import java.util.concurrent.TimeUnit
 class EntityProcessor(
     private val kafka: KafkaTemplate<String, Any>,
     private val service: TestService,
+    private val executor: ThreadPoolExecutor
 ) {
-    private val executor = ThreadPoolExecutor(
-        5,
-        20,
-        10,
-        TimeUnit.SECONDS,
-        SynchronousQueue(),
-        ThreadPoolExecutor.CallerRunsPolicy()
-    )
-
     @Autowired
     fun buildPipeline(
         streamsBuilder: StreamsBuilder
