@@ -16,7 +16,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.6'
+          cpus: '2'
           memory: 2048M
         reservations:
           cpus: '0.1'
@@ -79,10 +79,31 @@ services:
         reservations:
           cpus: '0.01'
           memory: 128M
-
+  ignite:
+    image: applem1support/ignite:2.12.0
+    volumes:
+      - ./ignite-config.xml:/opt/ignite/apache-ignite/config/custom-config.xml:ro
+      - ignite-data:/opt/ignite/server/work
+    networks:
+      - test-network
+    ports:
+      - "10800:10800"
+    environment:
+      IGNITE_QUIET: "false"
+      CONFIG_URI: /config/custom-config.xml
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.01'
+          memory: 128M
 networks:
   test-network:
     driver: bridge
 volumes:
   postgres-data:
+    external: false
+  ignite-data:
     external: false

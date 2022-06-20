@@ -6,14 +6,13 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import kotlin.random.Random
-import kotlin.random.nextULong
 
 @Service
 class KafkaProducerService(
     private val kafka: KafkaTemplate<String,Any>
 ) {
-    @Scheduled(initialDelay = 0, fixedDelay = 10_000)
+    @Scheduled(initialDelay = 0, fixedDelay = 500)
     fun poll() {
-        kafka.send(TOPIC_TEST_ONE, TestEntity(id = null, value = Random.nextULong().toString()))
+        kafka.send(TOPIC_TEST_ONE, TestEntity(id = null, value = Random.nextInt(100).toString()))
     }
 }

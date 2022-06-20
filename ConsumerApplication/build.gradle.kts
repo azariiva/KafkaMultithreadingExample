@@ -26,17 +26,28 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework:spring-context")
+
+    // kafka
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.apache.kafka:kafka-streams")
 
+    // serde
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-joda")
     implementation("joda-time:joda-time:2.10.10")
 
+    // cache
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("org.apache.ignite:ignite-core:2.13.0")
+    implementation("javax.cache:cache-api")
+
+    // db
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.postgresql:postgresql:42.2.22")
+
     compileOnly("org.projectlombok:lombok:$lombokVersion")
 
-    implementation("org.postgresql:postgresql:42.2.22")
     testImplementation(kotlin("test"))
 }
 

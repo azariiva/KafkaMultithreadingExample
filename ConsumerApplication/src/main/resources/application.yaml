@@ -24,3 +24,5 @@ spring:
     streams:
       bootstrap-servers: localhost:9092
       application-id: KafkaConsumerMultithreadingExample
+ignite:
+  node: localhost:10800

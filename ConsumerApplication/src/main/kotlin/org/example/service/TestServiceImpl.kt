@@ -4,7 +4,6 @@ import org.example.model.TestEntity
 import org.example.repository.test.TestRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class TestServiceImpl(
@@ -12,8 +11,8 @@ class TestServiceImpl(
 ) : TestService {
     private val logger = LoggerFactory.getLogger(TestServiceImpl::class.java)
 
-    override fun saveOrGetId(entity: TestEntity): UUID {
-        logger.info("Received entity {}", entity.value)
-        return repo.createOnDuplicateIgnoreReturningId(entity)
+    override fun saveEntity(entity: TestEntity) {
+        logger.info("Save entity {}", entity.id)
+        repo.createOnDuplicateIgnore(entity)
     }
 }
